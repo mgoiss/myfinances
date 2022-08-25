@@ -4,13 +4,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vobidu.myfinances.DTO.TipoOperacaoDTO;
 import com.vobidu.myfinances.entities.TipoOperacao;
 import com.vobidu.myfinances.repositories.TipoOperacaoRepositorie;
+import com.vobidu.myfinances.services.exceptions.BancoDadosExcecao;
 import com.vobidu.myfinances.services.exceptions.EntidadeNaoEncontradaExcecao;
 
 @Service
@@ -34,9 +39,34 @@ public class TipoOperacaoService {
 
 	@Transactional
 	public TipoOperacaoDTO inserir(TipoOperacaoDTO dto) {
-		TipoOperacao tipoOperacao = new TipoOperacao();
-		tipoOperacao.setNome(dto.getNome());
-		tipoOperacao = repository.save(tipoOperacao);
-		return new TipoOperacaoDTO(tipoOperacao);
+		TipoOperacao entidade = new TipoOperacao();
+		entidade.setNome(dto.getNome());
+		entidade = repository.save(entidade);
+		return new TipoOperacaoDTO(entidade);
+	}
+	
+	@Transactional
+	public TipoOperacaoDTO alterar(Long id, TipoOperacaoDTO dto) {
+		try {
+			TipoOperacao entidade = repository.getReferenceById(id);
+			entidade.setNome(dto.getNome());
+			entidade = repository.save(entidade);
+			return new TipoOperacaoDTO(entidade);
+		}
+		catch (EntityNotFoundException e) {
+			throw new EntidadeNaoEncontradaExcecao("Tipo Operacao com id " + id + " não encontrada");
+		}
+	}
+	
+	public void deletar(Long id) {
+		try {
+			repository.deleteById(id);
+		}
+		catch (EmptyResultDataAccessException e) {
+			throw new EntidadeNaoEncontradaExcecao("Tipo Operacao com id " + id + " não encontrada");
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new BancoDadosExcecao("Violação de integridade");
+		}
 	}
 }
