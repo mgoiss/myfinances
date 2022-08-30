@@ -7,3 +7,6 @@ INSERT INTO tb_categoria (nome, data_criacao) VALUES ('Agua', NOW());
 INSERT INTO tb_categoria (nome, data_criacao) VALUES ('Luz', NOW());
 INSERT INTO tb_categoria (nome, data_criacao) VALUES ('Cartao Casa', NOW());
 INSERT INTO tb_categoria (nome, data_criacao) VALUES ('Streaming', NOW());
+
+INSERT INTO tb_usuario (nome, email, senha) VALUES ('Matheus', 'mrochagois@gmail.com', '1234');
+INSERT INTO tb_usuario (nome, email, senha) VALUES ('Querem', 'queremfreire3@gmail.com', '1234');
