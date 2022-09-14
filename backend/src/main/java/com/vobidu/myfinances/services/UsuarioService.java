@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vobidu.myfinances.DTO.UsuarioDTO;
 import com.vobidu.myfinances.entities.Usuario;
-import com.vobidu.myfinances.repositories.UsuarioRepositorie;
+import com.vobidu.myfinances.repositories.UsuarioRepository;
 import com.vobidu.myfinances.services.exceptions.BancoDadosExcecao;
 import com.vobidu.myfinances.services.exceptions.EntidadeNaoEncontradaExcecao;
 
@@ -22,7 +22,7 @@ import com.vobidu.myfinances.services.exceptions.EntidadeNaoEncontradaExcecao;
 public class UsuarioService {
 	
 	@Autowired
-	private UsuarioRepositorie repository;
+	private UsuarioRepository repository;
 	
 	@Transactional(readOnly = true)
 	public Page<UsuarioDTO> buscarTodos(PageRequest requisicaoPaginada){

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vobidu.myfinances.DTO.CategoriaDTO;
 import com.vobidu.myfinances.entities.Categoria;
-import com.vobidu.myfinances.repositories.CategoriaRepositorie;
+import com.vobidu.myfinances.repositories.CategoriaRepository;
 import com.vobidu.myfinances.services.exceptions.BancoDadosExcecao;
 import com.vobidu.myfinances.services.exceptions.EntidadeNaoEncontradaExcecao;
 
@@ -22,7 +22,7 @@ import com.vobidu.myfinances.services.exceptions.EntidadeNaoEncontradaExcecao;
 public class CategoriaService {
 	
 	@Autowired
-	private CategoriaRepositorie repository;
+	private CategoriaRepository repository;
 	
 	@Transactional(readOnly = true)
 	public Page<CategoriaDTO> buscarTodos(PageRequest requisicaoPaginada){

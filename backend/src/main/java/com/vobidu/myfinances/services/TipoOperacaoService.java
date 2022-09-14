@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vobidu.myfinances.DTO.TipoOperacaoDTO;
 import com.vobidu.myfinances.entities.TipoOperacao;
-import com.vobidu.myfinances.repositories.TipoOperacaoRepositorie;
+import com.vobidu.myfinances.repositories.TipoOperacaoRepository;
 import com.vobidu.myfinances.services.exceptions.BancoDadosExcecao;
 import com.vobidu.myfinances.services.exceptions.EntidadeNaoEncontradaExcecao;
 
@@ -22,7 +22,7 @@ import com.vobidu.myfinances.services.exceptions.EntidadeNaoEncontradaExcecao;
 public class TipoOperacaoService {
 	
 	@Autowired
-	private TipoOperacaoRepositorie repository;
+	private TipoOperacaoRepository repository;
 	
 	@Transactional(readOnly = true)
 	public List<TipoOperacaoDTO> buscarTodos(){
