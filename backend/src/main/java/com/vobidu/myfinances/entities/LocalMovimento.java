@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+//ADICIONAR UMA OPÇÃO DE LOCAL HABILITADO OU NÃO, POIS NÃO DEVE PODER APAGAR UMA CONTA, POR CONTA DOS MOVIMENTO 
+
 @Entity
 @Table(name = "tb_local_movimento")
 public class LocalMovimento implements Serializable{
@@ -60,6 +62,10 @@ public class LocalMovimento implements Serializable{
 
 	public Usuario getUsuario() {
 		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override

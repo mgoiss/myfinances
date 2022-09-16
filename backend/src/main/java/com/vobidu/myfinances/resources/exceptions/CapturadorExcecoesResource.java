@@ -27,6 +27,7 @@ public class CapturadorExcecoesResource {
 		return ResponseEntity.status(status).body(erro);
 	}
 	
+	@ExceptionHandler(BancoDadosExcecao.class)
 	public ResponseEntity<RetornoPadraoErro> BancoDados(BancoDadosExcecao e, HttpServletRequest request) {
 		RetornoPadraoErro erro = new RetornoPadraoErro();
 		HttpStatus status = HttpStatus.BAD_REQUEST;

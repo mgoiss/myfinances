@@ -18,49 +18,48 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.vobidu.myfinances.DTO.UsuarioDTO;
-import com.vobidu.myfinances.DTO.UsuarioInserirAtualizarDTO;
-import com.vobidu.myfinances.services.UsuarioService;
+import com.vobidu.myfinances.DTO.LocalMovimentoDTO;
+import com.vobidu.myfinances.services.LocalMovimentoService;
 
 @RestController
-@RequestMapping(value = "/usuarios")
-public class UsuarioResource {
+@RequestMapping(value = "/locaismovimento")
+public class LocalMovimentoResource {
 	
 	@Autowired
-	private UsuarioService service;
+	private LocalMovimentoService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<UsuarioDTO>> buscarTodos(
+	public ResponseEntity<Page<LocalMovimentoDTO>> buscarTodos(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "DESC") String direction,
 			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy
 			) {
 		PageRequest requisicaoPaginada = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		Page<UsuarioDTO> listaUsuarioDTO = service.buscarTodos(requisicaoPaginada);
+		Page<LocalMovimentoDTO> listaLocalMovimentoDTO = service.buscarTodos(requisicaoPaginada);
 		
-		return ResponseEntity.ok().body(listaUsuarioDTO);
+		return ResponseEntity.ok().body(listaLocalMovimentoDTO);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<UsuarioDTO> buscarPorId(@PathVariable Long id) {
-		UsuarioDTO dto = service.buscarPorId(id);
+	public ResponseEntity<LocalMovimentoDTO> buscarPorId(@PathVariable Long id) {
+		LocalMovimentoDTO dto = service.buscarPorId(id);
 		
 		return ResponseEntity.ok().body(dto);
 	}
 	
 	@PostMapping
-	public ResponseEntity<UsuarioDTO> inserir(@RequestBody UsuarioInserirAtualizarDTO dto) {
-		UsuarioDTO usuarioDto = service.inserir(dto);
+	public ResponseEntity<LocalMovimentoDTO> inserir(@RequestBody LocalMovimentoDTO dto) {
+		dto = service.inserir(dto);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(dto.getId()).toUri();
 		
-		return ResponseEntity.created(uri).body(usuarioDto);
+		return ResponseEntity.created(uri).body(dto);
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<UsuarioDTO> alterar(@PathVariable Long id, @RequestBody UsuarioDTO dto) {
+	public ResponseEntity<LocalMovimentoDTO> alterar(@PathVariable Long id, @RequestBody LocalMovimentoDTO dto) {
 		dto = service.alterar(id, dto);
 		
 		return ResponseEntity.ok().body(dto);

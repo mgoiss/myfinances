@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vobidu.myfinances.DTO.UsuarioDTO;
+import com.vobidu.myfinances.DTO.UsuarioInserirAtualizarDTO;
 import com.vobidu.myfinances.entities.Usuario;
 import com.vobidu.myfinances.repositories.UsuarioRepository;
 import com.vobidu.myfinances.services.exceptions.BancoDadosExcecao;
@@ -38,9 +39,13 @@ public class UsuarioService {
 	}
 
 	@Transactional
-	public UsuarioDTO inserir(UsuarioDTO dto) {
+	public UsuarioDTO inserir(UsuarioInserirAtualizarDTO dto) {
 		Usuario entidade = new Usuario();
 		copiaDtoParaEntidade(dto, entidade);
+		
+		//Aqui entra a criptografia da senha
+		entidade.setSenha(dto.getSenha());
+		
 		entidade = repository.save(entidade);
 		return new UsuarioDTO(entidade);
 	}
@@ -50,6 +55,7 @@ public class UsuarioService {
 		try {
 			Usuario entidade = repository.getReferenceById(id);
 			copiaDtoParaEntidade(dto, entidade);
+			//Essa função não atualiza a senha
 			entidade = repository.save(entidade);
 			return new UsuarioDTO(entidade);
 		}
@@ -73,6 +79,5 @@ public class UsuarioService {
 	private void copiaDtoParaEntidade(UsuarioDTO dto, Usuario entidade) {
 		entidade.setNome(dto.getNome());
 		entidade.setEmail(dto.getEmail());
-		entidade.setSenha(dto.getSenha());
 	}
 }

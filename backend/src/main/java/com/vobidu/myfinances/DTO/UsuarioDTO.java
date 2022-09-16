@@ -1,13 +1,15 @@
 package com.vobidu.myfinances.DTO;
 
+import java.io.Serializable;
+
 import com.vobidu.myfinances.entities.Usuario;
 
-public class UsuarioDTO {
+public class UsuarioDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	private String nome;
 	private String email;
-	private String senha;
 	
 	public UsuarioDTO() {
 		
@@ -17,14 +19,12 @@ public class UsuarioDTO {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
-		this.senha = senha;
 	}
 	
 	public UsuarioDTO(Usuario entidade) {
 		this.id = entidade.getId();
 		this.nome = entidade.getNome();
 		this.email = entidade.getEmail();
-		this.senha = entidade.getSenha();
 	}
 
 	public Long getId() {
@@ -49,13 +49,5 @@ public class UsuarioDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
 	}
 }
