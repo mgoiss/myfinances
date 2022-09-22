@@ -29,14 +29,15 @@ public class LocalMovimentoResource {
 	private LocalMovimentoService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<LocalMovimentoDTO>> buscarTodos(
+	public ResponseEntity<Page<LocalMovimentoDTO>> buscarLocalMovimentoUsuario(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "DESC") String direction,
-			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy
+			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+			@RequestParam("idUsuario") Long idUsuario
 			) {
 		PageRequest requisicaoPaginada = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		Page<LocalMovimentoDTO> listaLocalMovimentoDTO = service.buscarTodos(requisicaoPaginada);
+		Page<LocalMovimentoDTO> listaLocalMovimentoDTO = service.buscarLocalMovimentoUsuario(requisicaoPaginada, idUsuario);
 		
 		return ResponseEntity.ok().body(listaLocalMovimentoDTO);
 	}
