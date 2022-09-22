@@ -73,6 +73,30 @@ public class Movimento {
 		this.data = data;
 	}
 
+	public LocalMovimento getLocalMovimento() {
+		return localMovimento;
+	}
+
+	public void setLocalMovimento(LocalMovimento localMovimento) {
+		this.localMovimento = localMovimento;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public TipoOperacao getTipoOperacao() {
+		return tipoOperacao;
+	}
+
+	public void setTipoOperacao(TipoOperacao tipoOperacao) {
+		this.tipoOperacao = tipoOperacao;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

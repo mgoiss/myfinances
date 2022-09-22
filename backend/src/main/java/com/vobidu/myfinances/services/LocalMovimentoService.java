@@ -28,6 +28,7 @@ public class LocalMovimentoService {
 	@Autowired
 	private UsuarioRepository usuarioRespository;
 	
+	//Fazer essa paginação retornar apenas o de um determinado usuário
 	@Transactional(readOnly = true)
 	public Page<LocalMovimentoDTO> buscarTodos(PageRequest requisicaoPaginada){
 		Page<LocalMovimento> lista = repository.findAll(requisicaoPaginada);

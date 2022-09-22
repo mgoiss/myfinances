@@ -1,11 +1,11 @@
 package com.vobidu.myfinances.DTO;
 
-public class UsuarioInserirAtualizarDTO extends UsuarioDTO{
+public class UsuarioInserirDTO extends UsuarioDTO{
 	private static final long serialVersionUID = 1L;
 
 	private String senha;
 	
-	public UsuarioInserirAtualizarDTO() {
+	public UsuarioInserirDTO() {
 		super();
 	}
 

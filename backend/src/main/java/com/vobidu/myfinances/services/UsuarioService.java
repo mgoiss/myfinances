@@ -12,8 +12,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vobidu.myfinances.DTO.UsuarioAtualizarDTO;
 import com.vobidu.myfinances.DTO.UsuarioDTO;
-import com.vobidu.myfinances.DTO.UsuarioInserirAtualizarDTO;
+import com.vobidu.myfinances.DTO.UsuarioInserirDTO;
 import com.vobidu.myfinances.entities.Usuario;
 import com.vobidu.myfinances.repositories.UsuarioRepository;
 import com.vobidu.myfinances.services.exceptions.BancoDadosExcecao;
@@ -39,7 +40,7 @@ public class UsuarioService {
 	}
 
 	@Transactional
-	public UsuarioDTO inserir(UsuarioInserirAtualizarDTO dto) {
+	public UsuarioDTO inserir(UsuarioInserirDTO dto) {
 		Usuario entidade = new Usuario();
 		copiaDtoParaEntidade(dto, entidade);
 		
@@ -51,7 +52,7 @@ public class UsuarioService {
 	}
 	
 	@Transactional
-	public UsuarioDTO alterar(Long id, UsuarioDTO dto) {
+	public UsuarioDTO alterar(Long id, UsuarioAtualizarDTO dto) {
 		try {
 			Usuario entidade = repository.getReferenceById(id);
 			copiaDtoParaEntidade(dto, entidade);
