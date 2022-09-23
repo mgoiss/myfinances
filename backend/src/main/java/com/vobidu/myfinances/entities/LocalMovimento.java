@@ -22,6 +22,7 @@ public class LocalMovimento implements Serializable{
 	private Long id;
 	private String nome;
 	private Double saldo;
+	private Boolean status;
 	
 	@ManyToOne
 	private Usuario usuario;
@@ -29,11 +30,12 @@ public class LocalMovimento implements Serializable{
 	public LocalMovimento() {
 	}
 
-	public LocalMovimento(Long id, String nome, Double saldo) {
+	public LocalMovimento(Long id, String nome, Double saldo, Boolean status) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.saldo = saldo;
+		this.status = status;
 	}
 
 	public Long getId() {
@@ -55,9 +57,17 @@ public class LocalMovimento implements Serializable{
 	public Double getSaldo() {
 		return saldo;
 	}
-
+	
 	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 	public Usuario getUsuario() {
@@ -66,6 +76,15 @@ public class LocalMovimento implements Serializable{
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	public void recalcularSaldo(Double valorNovoMovimento, String tipoOperacao) {		
+		if (tipoOperacao.toUpperCase().intern() == "RECEITA") {
+			this.saldo += valorNovoMovimento;
+		}
+		else {
+			this.saldo -= valorNovoMovimento;
+		}
 	}
 
 	@Override

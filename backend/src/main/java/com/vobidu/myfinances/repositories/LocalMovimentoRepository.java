@@ -1,6 +1,8 @@
 package com.vobidu.myfinances.repositories;
 
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,8 +16,6 @@ import com.vobidu.myfinances.entities.LocalMovimento;
 public interface LocalMovimentoRepository extends JpaRepository<LocalMovimento, Long> {
 
 	//Pegando apenas os locais de movimento de um determinado usuario
-	@Query("FROM LocalMovimento lm WHERE lm.usuario.id = :idUsuario")
-	Page<LocalMovimento> BuscarPorUsuario(PageRequest requisicaoPaginada,@Param("idUsuario") Long idUsuario);
-	
-
+	@Query("FROM LocalMovimento lm WHERE lm.usuario.id = :idUsuario AND ( :status IS NULL OR lm.status = :status )")
+	Page<LocalMovimento> BuscarPorUsuario(PageRequest requisicaoPaginada,@Param("idUsuario") Long idUsuario,@Param("status") Optional<Boolean> status);
 }

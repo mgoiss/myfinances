@@ -55,7 +55,7 @@ public class UsuarioResource {
 		UsuarioDTO usuarioDto = service.inserir(dto);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(dto.getId()).toUri();
+				.buildAndExpand(usuarioDto.getId()).toUri();
 		
 		return ResponseEntity.created(uri).body(usuarioDto);
 	}

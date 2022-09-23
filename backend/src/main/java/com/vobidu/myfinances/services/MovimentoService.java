@@ -37,6 +37,7 @@ public class MovimentoService {
 	private TipoOperacaoRepository tipoOperacaoRepository;
 	
 	//Verificar se é necessário retornar o local movimento com os dados do usuário, caso contrario criar um DTO sem essa informação
+	//Verificar se o local movimento tá ativo para associar a um movimento
 	
 	//Fazer essa paginação retornar apenas o de um determinado usuário
 	@Transactional(readOnly = true)
@@ -56,7 +57,6 @@ public class MovimentoService {
 	public MovimentoDTO inserir(MovimentoDTO dto) {
 		Movimento entidade = new Movimento();
 		copiarDtoParaEntidade(dto, entidade);
-		//Chamar uma função para atualizar o saldo do local de movimento
 		entidade = repository.save(entidade);
 		return new MovimentoDTO(entidade, entidade.getLocalMovimento(), entidade.getCategoria(), entidade.getTipoOperacao());
 	}
@@ -66,7 +66,6 @@ public class MovimentoService {
 		try {
 			Movimento entidade = repository.getReferenceById(id);
 			copiarDtoParaEntidade(dto, entidade);
-			//Chamar uma função para atualizar o saldo do local de movimento
 			entidade = repository.save(entidade);
 			return new MovimentoDTO(entidade, entidade.getLocalMovimento(), entidade.getCategoria(), entidade.getTipoOperacao());
 		}
@@ -93,12 +92,14 @@ public class MovimentoService {
 		entidade.setData(dto.getData());
 		
 		LocalMovimento localMovimento = localMovimentoRespository.getReferenceById(dto.getLocalMovimento().getId());
-		entidade.setLocalMovimento(localMovimento);
-		
 		Categoria categoria = categoriaRepository.getReferenceById(dto.getCategoria().getId());
-		entidade.setCategoria(categoria);
-		
 		TipoOperacao tipoOperacao = tipoOperacaoRepository.getReferenceById(dto.getTipoOperacao().getId());
+		
+		//Recalculando o saldo
+		localMovimento.recalcularSaldo(entidade.getValor(), tipoOperacao.getNome());
+		
+		entidade.setLocalMovimento(localMovimento);
+		entidade.setCategoria(categoria);
 		entidade.setTipoOperacao(tipoOperacao);
 	}
 }
