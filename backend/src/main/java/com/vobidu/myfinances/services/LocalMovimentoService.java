@@ -29,7 +29,7 @@ public class LocalMovimentoService {
 	@Transactional(readOnly = true)
 	public Page<LocalMovimentoDTO> buscarLocalMovimentoUsuario(PageRequest requisicaoPaginada, Long idUsuario, Optional<Boolean> status){
 		Page<LocalMovimento> lista = repository.BuscarPorUsuario(requisicaoPaginada, idUsuario, status);
-		
+
 		return lista.map(x -> new LocalMovimentoDTO(x));
 	}
 	

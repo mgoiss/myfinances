@@ -28,3 +28,7 @@ INSERT INTO tb_usuario (nome, email, senha) VALUES ('Querem', 'querem@gmail.com'
 INSERT INTO tb_local_movimento (nome, saldo, status, usuario_id) VALUES ('CARTEIRA', 00.00, true, 2);
 INSERT INTO tb_local_movimento (nome, saldo, status, usuario_id) VALUES ('CARTÃO INTER', 00.00, true, 2);
 INSERT INTO tb_local_movimento (nome, saldo, status, usuario_id) VALUES ('NEON', 00.00, true, 2);
+
+INSERT INTO tb_movimento (descricao, valor, data, local_movimento_id, categoria_id, tipo_operacao_id) VALUES ('CONSULTA MARIA', 60.00, TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 5, 8, 1)
+INSERT INTO tb_movimento (descricao, valor, data, local_movimento_id, categoria_id, tipo_operacao_id) VALUES ('ROUPA', 20.00, TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 6, 8, 2)
+INSERT INTO tb_movimento (descricao, valor, data, local_movimento_id, categoria_id, tipo_operacao_id) VALUES ('CONSULTA JOÃO', 500.00, TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 7, 8, 1)

@@ -36,13 +36,12 @@ public class MovimentoService {
 	@Autowired
 	private TipoOperacaoRepository tipoOperacaoRepository;
 	
-	//Verificar se é necessário retornar o local movimento com os dados do usuário, caso contrario criar um DTO sem essa informação
-	//Verificar se o local movimento tá ativo para associar a um movimento
+	//Verificar se o local movimento tá ativo para associar a um movimento (VALIDAÇÃO)
 	
-	//Fazer essa paginação retornar apenas o de um determinado usuário
 	@Transactional(readOnly = true)
-	public Page<MovimentoDTO> buscarTodos(PageRequest requisicaoPaginada){
-		Page<Movimento> lista = repository.findAll(requisicaoPaginada);
+	public Page<MovimentoDTO> buscarPorUsuario(PageRequest requisicaoPaginada, Long idUsuario){
+		Page<Movimento> lista = repository.BuscarPorUsuario(requisicaoPaginada, idUsuario);
+
 		return lista.map(x -> new MovimentoDTO(x, x.getLocalMovimento(), x.getCategoria(), x.getTipoOperacao()));
 	}
 	

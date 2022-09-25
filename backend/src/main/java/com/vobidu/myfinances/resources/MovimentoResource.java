@@ -33,10 +33,11 @@ public class MovimentoResource {
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "DESC") String direction,
-			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy
+			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+			@RequestParam(value = "idUsuario", defaultValue = "1") Long idUsuario
 			) {
 		PageRequest requisicaoPaginada = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		Page<MovimentoDTO> listaMovimentoDTO = service.buscarTodos(requisicaoPaginada);
+		Page<MovimentoDTO> listaMovimentoDTO = service.buscarPorUsuario(requisicaoPaginada, idUsuario);
 		
 		return ResponseEntity.ok().body(listaMovimentoDTO);
 	}
