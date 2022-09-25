@@ -21,6 +21,8 @@ import com.vobidu.myfinances.services.exceptions.EntidadeNaoEncontradaExcecao;
 @Service
 public class LocalMovimentoService {
 	
+	//Alterar status por um metodo proprio, para assim verificar se o local movimento não tem saldo
+	
 	@Autowired
 	private LocalMovimentoRepository repository;
 	@Autowired

@@ -96,7 +96,7 @@ public class Movimento {
 	public void setTipoOperacao(TipoOperacao tipoOperacao) {
 		this.tipoOperacao = tipoOperacao;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
