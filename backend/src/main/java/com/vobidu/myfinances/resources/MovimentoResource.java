@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,14 +22,18 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.vobidu.myfinances.DTO.MovimentoDTO;
 import com.vobidu.myfinances.services.MovimentoService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(value = "/movimentos")
+@CrossOrigin(origins = "*")
 public class MovimentoResource {
 	
 	@Autowired
 	private MovimentoService service;
 	
 	@GetMapping
+	@ApiOperation(value = "Lista Movimentos")
 	public ResponseEntity<Page<MovimentoDTO>> buscarTodos(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
@@ -43,6 +48,7 @@ public class MovimentoResource {
 	}
 	
 	@GetMapping(value = "/{id}")
+	@ApiOperation(value = "Lista um Movimento")
 	public ResponseEntity<MovimentoDTO> buscarPorId(@PathVariable Long id) {
 		MovimentoDTO dto = service.buscarPorId(id);
 		
@@ -50,6 +56,7 @@ public class MovimentoResource {
 	}
 	
 	@PostMapping
+	@ApiOperation(value = "Salva Movimento")
 	public ResponseEntity<MovimentoDTO> inserir(@RequestBody MovimentoDTO dto) {
 		dto = service.inserir(dto);
 		
@@ -60,6 +67,7 @@ public class MovimentoResource {
 	}
 	
 	@PutMapping(value = "/{id}")
+	@ApiOperation(value = "Altera Movimento")
 	public ResponseEntity<MovimentoDTO> alterar(@PathVariable Long id, @RequestBody MovimentoDTO dto) {
 		dto = service.alterar(id, dto);
 		
@@ -67,6 +75,7 @@ public class MovimentoResource {
 	}
 	
 	@DeleteMapping(value = "/{id}")
+	@ApiOperation(value = "Deleta Movimento")
 	public ResponseEntity<Void> deletar(@PathVariable Long id) {
 		service.deletar(id);
 		return ResponseEntity.noContent().build();

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,14 +24,18 @@ import com.vobidu.myfinances.DTO.UsuarioDTO;
 import com.vobidu.myfinances.DTO.UsuarioInserirDTO;
 import com.vobidu.myfinances.services.UsuarioService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(value = "/usuarios")
+@CrossOrigin(origins = "*")
 public class UsuarioResource {
 	
 	@Autowired
 	private UsuarioService service;
 	
 	@GetMapping
+	@ApiOperation(value = "Lista Usuarios")
 	public ResponseEntity<Page<UsuarioDTO>> buscarTodos(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
@@ -44,6 +49,7 @@ public class UsuarioResource {
 	}
 	
 	@GetMapping(value = "/{id}")
+	@ApiOperation(value = "Lista um Usuario")
 	public ResponseEntity<UsuarioDTO> buscarPorId(@PathVariable Long id) {
 		UsuarioDTO dto = service.buscarPorId(id);
 		
@@ -51,6 +57,7 @@ public class UsuarioResource {
 	}
 	
 	@PostMapping
+	@ApiOperation(value = "Salva Usuarios")
 	public ResponseEntity<UsuarioDTO> inserir(@RequestBody UsuarioInserirDTO dto) {
 		UsuarioDTO usuarioDto = service.inserir(dto);
 		
@@ -61,6 +68,7 @@ public class UsuarioResource {
 	}
 	
 	@PutMapping(value = "/{id}")
+	@ApiOperation(value = "Altera Usuarios")
 	public ResponseEntity<UsuarioDTO> alterar(@PathVariable Long id, @RequestBody UsuarioAtualizarDTO dto) {
 		UsuarioDTO novoDto = service.alterar(id, dto);
 		
@@ -68,6 +76,7 @@ public class UsuarioResource {
 	}
 	
 	@DeleteMapping(value = "/{id}")
+	@ApiOperation(value = "Deleta Usuarios")
 	public ResponseEntity<Void> deletar(@PathVariable Long id) {
 		service.deletar(id);
 		return ResponseEntity.noContent().build();

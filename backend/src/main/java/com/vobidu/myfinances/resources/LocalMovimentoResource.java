@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,14 +23,18 @@ import com.vobidu.myfinances.DTO.LocalMovimentoCompletoDTO;
 import com.vobidu.myfinances.DTO.LocalMovimentoDTO;
 import com.vobidu.myfinances.services.LocalMovimentoService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(value = "/locaismovimento")
+@CrossOrigin(origins = "*")
 public class LocalMovimentoResource {
 	
 	@Autowired
 	private LocalMovimentoService service;
 	
 	@GetMapping
+	@ApiOperation(value = "Lista Local Movimento")
 	public ResponseEntity<Page<LocalMovimentoDTO>> buscarLocalMovimentoUsuario(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
@@ -45,6 +50,7 @@ public class LocalMovimentoResource {
 	}
 	
 	@GetMapping(value = "/{id}")
+	@ApiOperation(value = "Lista um Local Movimento")
 	public ResponseEntity<LocalMovimentoCompletoDTO> buscarPorId(@PathVariable Long id) {
 		LocalMovimentoCompletoDTO dto = service.buscarPorId(id);
 		
@@ -52,6 +58,7 @@ public class LocalMovimentoResource {
 	}
 	
 	@PostMapping
+	@ApiOperation(value = "Salva Local Movimento")
 	public ResponseEntity<LocalMovimentoDTO> inserir(@RequestBody LocalMovimentoCompletoDTO dto) {
 		LocalMovimentoDTO NovoDto = service.inserir(dto);
 		
@@ -62,6 +69,7 @@ public class LocalMovimentoResource {
 	}
 	
 	@PutMapping(value = "/{id}")
+	@ApiOperation(value = "Deleta Local Movimento")
 	public ResponseEntity<LocalMovimentoDTO> alterar(@PathVariable Long id, @RequestBody LocalMovimentoCompletoDTO dto) {
 		LocalMovimentoDTO NovoDto = service.alterar(id, dto);
 		
